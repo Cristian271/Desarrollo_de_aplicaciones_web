@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta 
+    charset="UTF-8"
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto - Artik3D</title>
+    <link rel="stylesheet" href="css/formulario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="js/agregarProducto.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <form id="formulario-producto">
+            <h2>Nuevo <span class="decoracion">Producto</span></h2>
+            <p>Ingresa los datos del artículo para el catálogo</p>
+
+            <label for="imagen-producto">Imagen del producto</label>
+            <input type="file" id="imagen-producto" name="imagen" accept="image/*" required>
+
+            <label for="nombre-producto">Nombre del producto</label>
+            <input type="text" id="nombre-producto" name="nombre" placeholder="Ej. Nutria articulada" required>
+
+            <label for="precio-producto">Precio del producto ($)</label>
+            <input type="number" id="precio-producto" name="precio" placeholder="Ej. 400" min="0" step="1" required>
+
+            <div class="botones-formulario">
+                <button type="button" class="btn-cancelar" onclick="window.close()">Cancelar</button>
+                <button type="submit" class="btn-guardar">Guardar producto</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

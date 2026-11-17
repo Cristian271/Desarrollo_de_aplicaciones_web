@@ -1,0 +1,122 @@
+* {
+    font-family: sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #080b12;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+main {
+    width: 100%;
+    max-width: 24rem;
+}
+
+/* Contenedor principal del login */
+form {
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 20px 10px rgba(0, 0, 0, 0.3);
+}
+
+form h2 {
+    font-size: 1.8rem;
+    color: #eff0f0;
+    margin-bottom: 0.3rem;
+}
+
+.decoracion {
+    color: #0b9ae7;
+}
+
+form p {
+    color: #8ec5e99a;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Etiquetas y campos de entrada */
+label {
+    color: #d9e2ecc8;
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+input {
+    background-color: #1f2937;
+    border: 1px solid #2c394d;
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: #f6f7f8;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input::placeholder {
+    color: #cfd5dbbb;
+}
+
+input:focus {
+    border-color: #0b9ae7;
+}
+
+/* Contenedor de botones */
+.botones-formulario {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.btn-volver {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: transparent;
+    color: #d9e2ecc8;
+    border: 1px solid #1f2937;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-volver:hover {
+    border-color: #425978;
+    color: #eff0f2;
+    transform: scale(0.96);
+}
+
+.btn-ingresar {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #0b9ae7;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-ingresar:hover {
+    background-color: #0099ff;
+    transform: scale(0.96);
+}

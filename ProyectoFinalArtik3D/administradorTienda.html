@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta 
+    charset="UTF-8"
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <title>Administrar Tienda - Artik3D</title>
+    <link rel="stylesheet" href="css/administradorTienda.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="js/administradorTienda.js" defer></script>
+</head>
+
+<body>
+    <aside class="panel-lateral">
+        <a href="index.html">
+            <img src="assets/images/LArtik3D.png" width="100" height="50" class="logo">
+        </a>
+        <h2>Panel <span class="decoracion">Admin</span></h2>
+        <nav class="menu-admin">
+            <a href="administradorComentarios.html">Comentarios</a>
+            <a href="administradorTienda.html" class="activo">Tienda</a>
+            <a href="administradorProductosDestacados.html">Productos destacados</a>
+        </nav>
+        <button class="btn-cerrar-sesion" id="btn-cerrar-sesion">Cerrar panel</button>
+    </aside>
+
+    <main class="contenido-principal">
+        <div class="cabecera-admin">
+            <div>
+                <h1 class="secciones">Catalogo de productos</h1>
+                <p>Administra los modelos visibles en la tienda</p>
+            </div>
+            <button class="btn-agregar" id="btn-agregar">+ Añadir producto</button>
+        </div>
+
+        <section class="contenedor-catalogo" id="contenedor-catalogo">
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p1.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Nutria</h3>
+                        <span>$400</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p2.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Steve</h3>
+                        <span>$400</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p3.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Pug</h3>
+                        <span>$350</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p4.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Alien</h3>
+                        <span>$270</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p5.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Araña</h3>
+                        <span>$200</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p6.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Nose</h3>
+                        <span>$150</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p7.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Flor enojada</h3>
+                        <span>$200</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p8.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Serpiente</h3>
+                        <span>$350</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+
+            <!-- Repetición de productos para el catálogo -->
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p1.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Nutria</h3>
+                        <span>$400</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p2.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Steve</h3>
+                        <span>$400</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p3.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Pug</h3>
+                        <span>$350</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p4.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Alien</h3>
+                        <span>$270</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p5.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Araña</h3>
+                        <span>$200</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p6.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Nose</h3>
+                        <span>$150</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p7.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Flor enojada</h3>
+                        <span>$200</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+            <article>
+                <div class="contenedor-imagen">
+                    <img src="assets/images/products/p8.png">
+                </div>
+                <div class="info-producto">
+                    <div>
+                        <h3>Serpiente</h3>
+                        <span>$350</span>
+                    </div>
+                    <button class="btn-borrar"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

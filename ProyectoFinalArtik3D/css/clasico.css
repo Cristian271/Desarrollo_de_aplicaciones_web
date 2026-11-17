@@ -1,0 +1,456 @@
+* {
+    font-family:sans-serif; /* <--- Esto aplica Montserrat a absolutamente todo */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+header {
+    position: relative; 
+    height: 35rem;
+    overflow: hidden;  
+    box-shadow: 0px 20px 10px rgba(0, 0, 0, 0.3);
+}
+
+.ocultar{
+    visibility: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1; 
+    object-fit: cover;
+}
+
+/*Acomoda los links del nav*/
+.nav-links{
+    display: flex;
+    gap: 2rem;   
+    margin-left: auto;  
+    margin-right: 5%;      
+    text-decoration: none;     
+}
+/* Underline de los links del nav*/
+.nav-links a:hover{
+    text-decoration: underline;
+    cursor:pointer;
+    transform: scale(1.15);
+    color:#eff0f2;
+    
+
+}
+.nav-links a{
+    text-decoration: none;
+    color:#d9e2ecc8;
+    font-size:1rem;
+    position: relative;
+    margin: 1rem;
+    transition: transform 0.3s ease;
+
+}
+/*Acomoda el contendeor de la lupa y carrito en la parte derecha*/
+.nav-logos{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 3%;
+    gap: 2rem;
+    z-index: 100;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Efecto difuminado al hacer scroll */
+.nav-logos.nav-scroll{
+    background-color: rgba(8, 11, 18, 0.65);
+    backdrop-filter: blur(10px);
+}
+
+
+/*Tamaño de la lupa y el carrito*/
+.nav-logos a img{
+    width: 2rem;              
+    height: 2rem; 
+    transition: transform 0.3s ease;          
+}
+.nav-logos a img:hover{
+   transform: scale(1.35);
+    cursor: pointer;           
+}
+/*ImagenArtik3D*/
+nav .logo {
+    width: 120px;              
+    height: auto;              
+    object-fit: contain;  
+    margin-top: 5px; 
+       
+}
+
+body {
+    background-color: #080b12;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/*Organiza cada contenedor dentro del div*/
+nav {
+    display: flex;
+    align-items: center;     
+    justify-content: flex-start; 
+    padding: 10px 10px;
+    gap:5%; 
+            
+
+}
+
+footer{
+    background-color: rgb(0, 1, 5);
+    height: 200px;
+    width: 100%;
+}
+
+
+
+.texto-lema{
+    word-spacing: 4px;
+    font-weight:bold;
+    font-size: 16px;
+    color: #a4c9f39b;
+}
+
+.contenedor-logo-tipo{
+    margin-top: 5.5rem;
+    margin-left: 2.7rem;
+    
+}
+
+
+.contenedor-logo-tipo a{
+    display:block;
+	width:230px;
+	height:90px;
+    margin-top: 2.7rem;
+
+}
+
+.contenedor-logo-tipo a#revisarcatalogo {
+    display: block;
+    width: 230px; 
+    height: 90px;
+    margin-top: 2.7rem;
+    background-image: url('../assets/images/boton/btn-revisarcatalogo.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contenedor-logo-tipo a#revisarcatalogo:hover {
+    transform: scale(0.9);
+}
+
+.impresiones{
+    font-size: 40px;
+    color:#eff0f0; 
+}
+
+.tresde{
+    font-size: 50px;
+    color:#0b9ae7;
+}
+
+.introduccion{
+    margin-top: 1rem;
+    max-width: 500px;
+    font-weight: lighter;
+    color:#cfd5dbbb;
+}
+
+.contenedor-footer-header{
+    display: flex;
+    width: 45rem;
+    height: 300px;
+    justify-content: flex-start;
+    margin-left: 2.7rem;
+    margin-top: 2rem;
+    
+}
+.contenedor-footer-header div{
+    display: flex;
+    gap: 1rem
+
+}
+
+.contenedor-footer-header div img{
+    width: 3rem;
+    height: 3rem;
+    opacity: 0.5;
+}
+
+.contenedor-footer-header div p{
+    color:#d9e2ecc8
+}
+/*-----------------------------------------------HEADER--------------------------------------------------------------------*/
+/*-----------------------------------------------MAIN--------------------------------------------------------------------*/
+/*Productos-destacados*/
+.secciones{
+    display: flex;
+    align-items: center;
+    width: 30rem;
+    height: 2rem;
+    margin-left:2.5rem;
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+    color:#ecebeb;
+}
+
+.secciones + p{
+    color: #8ec5e99a;
+    font-size: 0.9rem;
+    margin-left: 2.5rem;
+}
+
+.contenedor-productos-destacados{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(10rem, 1fr));
+    grid-auto-rows: minmax(10rem, 1fr);
+    gap: 2rem;
+    margin: 1rem 2.5rem 0 2.5rem
+}
+
+.contenedor-productos-destacados article{
+    display: flex;
+    flex-direction: column;
+    background-color: #111827;
+    overflow: hidden;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.contenedor-productos-destacados article:hover{
+    transform: translateY(-8px);
+    border: 1px solid #425978;
+    box-shadow: 0 0px 10px rgba(247, 247, 247, 0.061);
+}
+
+.contenedor-imagen{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #1f2937;
+}
+
+.contenedor-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #2c394d;      
+}
+
+.info-producto{
+    display: flex;
+    margin: 1em;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.info-producto span{
+    font-size: 1em;
+    color:#f6f7f8;
+}
+
+.info-producto h3{
+    font-size: 1.5em;
+    color:#f6f7f8;
+    margin: 0 0 6px 0;
+}
+
+.contenedor-lupa-carrito{
+    display: flex;
+    gap: 10px;
+}
+
+.btn-carrito{
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    transition: transform 0.3s ease;
+}
+
+.btn-carrito:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/*Productos-destacados*/
+/*Impresiones-Personalizadas*/
+.contenedor-impresiones-personalizadas{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(10rem, 1fr));
+    grid-auto-rows: minmax(10rem, 1fr);
+    margin: 2rem 2.5rem 2.5rem 2.5rem;
+    gap: 3rem
+}
+
+.contenedor-impresiones-personalizadas div{
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease
+}
+.contenedor-impresiones-personalizadas div:not(:last-child)::after{
+    content: '';
+    position: absolute;
+    top: 35%; 
+    right: -3rem; 
+    width: 3rem; 
+    height: 2px; 
+    background-color: #0099ff; 
+    z-index: -1;
+}
+.contenedor-impresiones-personalizadas div:hover{
+    transform: scale(1.05);
+}
+
+.contenedor-impresiones-personalizadas div img{
+    height: 50%;
+    width: 50%;
+    transform: translateX(4em);
+    align-items: flex-start;
+    justify-content: center;
+    object-fit: contain;
+}
+
+.titulo-proceso{
+    font-size: 1.5rem;
+    color:#f6f7f8;
+    margin-left: 1em;
+}
+
+.numero-carta{
+    margin: 0.5em auto 0 0.5em;
+    color: #0d77bdf7;
+    font-weight: bold;
+    font-size: 2.2em
+}
+
+.titulo-proceso + p{
+    margin: 1rem 0 1.4em 1.5em;
+    width: 80%;
+    color: #8ec5e9c9;
+}
+
+.contenedor-impresiones-personalizadas-footer{
+    height: 0.5fr;
+    width: 1fr;
+    display: flex;
+    margin: 1.3rem 2.5rem 2rem 2.5rem;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #111827;
+    transition: transform 0.3s ease;
+    
+}
+.contenedor-impresiones-personalizadas-footer:hover{
+    transform: scale(1.01);
+}
+
+.contenedor-impresiones-personalizadas-footer img{
+    width: 8em;
+    height: 8em;
+    align-items: center;
+    justify-content: center;
+    margin: 1em 1em 1em 1em;
+}
+
+.contenedor-impresiones-personalizadas-footer h3{
+    font-size: 2em;
+    color:white;
+    margin: 1em 0 0 3em;
+}
+
+.contenedor-impresiones-personalizadas-footer h3 + p{
+    margin: 1em 0 0 5.2em;
+    width: 80%;
+    color: #8ec5e9c9;
+    font-size: 18px;
+}
+
+.contenedor-impresiones-personalizadas-footer a{
+    display: block;
+    width: 20em; 
+    height: 6em;
+    margin: 1.9em 2em 0 auto;
+    background-image: url('../assets/images/boton/solicitar-impresion.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contenedor-impresiones-personalizadas-footer a:hover{
+    transform: scale(.9);
+}
+
+/*ULTIMO APARTADO DE OPINIONES*/
+.contenedor-opiniones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 1fr;
+    gap: 20px;
+    align-items: stretch;
+    margin: 1em 2em 1em 2em;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #111827;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tarjeta-opinion .cabecera-tarjeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1em auto 1em 1em
+}
+
+.tarjeta-opinion .comentario {
+  flex-grow: 1;
+  margin: 1em 1em 1em 1em;
+}
+
+
+.tarjeta-resumen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.resumen-superior {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

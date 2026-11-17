@@ -1,0 +1,114 @@
+* {
+    font-family: sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #080b12;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+}
+
+/* Panel lateral izquierdo */
+.panel-lateral {
+    width: 16rem;
+    min-height: 100vh;
+    background-color: #111827;
+    border-right: 1px solid #1f2937;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.panel-lateral .logo {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.panel-lateral h2 {
+    font-size: 1.2rem;
+    color: #eff0f0;
+    margin-bottom: 2rem;
+    padding-left: 0.5rem;
+}
+
+.decoracion {
+    color: #0b9ae7;
+}
+
+.menu-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.menu-admin a {
+    text-decoration: none;
+    color: #d9e2ecc8;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.menu-admin a:hover {
+    background-color: #1f2937;
+    color: #eff0f2;
+}
+
+.menu-admin a.activo {
+    background-color: #0b9ae7;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.btn-cerrar-sesion {
+    margin-top: auto;
+    background-color: transparent;
+    color: #d9e2ecc8;
+    border: 1px solid #1f2937;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-cerrar-sesion:hover {
+    border-color: #425978;
+    color: #eff0f2;
+}
+
+/* Contenido derecho */
+.contenido-principal {
+    margin-left: 16rem;
+    flex: 1;
+    padding: 2rem 2.5rem;
+}
+
+.cabecera-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.secciones {
+    font-size: 1.8rem;
+    color: #ecebeb;
+    margin-bottom: 0.3rem;
+}
+
+.secciones + p {
+    color: #8ec5e99a;
+    font-size: 0.9rem;
+}
