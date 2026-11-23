@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dejar Opinión - Artik3D</title>
+    <link rel="stylesheet" href="css/formulario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="js/agregarComentario.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <div class="contenedor-formulario">
+            <form id="formulario-comentario">
+                <h2>Deja tu <span class="decoracion">Opinión</span></h2>
+                <p>Cuéntanos qué te pareció nuestro trabajo</p>
+
+                <label for="nombre-cliente">Tu nombre</label>
+                <input type="text" id="nombre-cliente" name="nombre" placeholder="Ej. Sofía R." required>
+
+                <label for="calificacion-cliente">Calificación</label>
+                <select id="calificacion-cliente" name="calificacion" required>
+                    <option value="5">★★★★★ 5 estrellas</option>
+                    <option value="4">★★★★☆ 4 estrellas</option>
+                    <option value="3">★★★☆☆ 3 estrellas</option>
+                    <option value="2">★★☆☆☆ 2 estrellas</option>
+                    <option value="1">★☆☆☆☆ 1 estrella</option>
+                    <option value="0">☆☆☆☆☆ sin estrellas</option>
+                </select>
+
+                <label for="texto-comentario">Tu comentario</label>
+                <textarea id="texto-comentario" name="comentario" rows="4" placeholder="Escribe aquí tu experiencia con Artik3D..." required></textarea>
+
+                <div class="botones-formulario">
+                    <button type="button" class="btn-cancelar" onclick="window.close()">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Enviar opinión</button>
+                </div>
+            </form>
+
+            <div id="mensaje-exito" class="mensaje-exito oculto">
+                <h2>¡Gracias por tu opinión!</h2>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

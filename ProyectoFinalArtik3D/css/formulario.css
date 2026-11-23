@@ -75,6 +75,51 @@ input:focus {
     border-color: #0b9ae7;
 }
 
+/* Estilos complementarios para el formulario de comentarios*/
+select,
+textarea {
+    background-color: #1f2937;
+    border: 1px solid #2c394d;
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: #f6f7f8;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+}
+
+select:focus,
+textarea:focus {
+    border-color: #0b9ae7;
+}
+
+.contenedor-formulario {
+    position: relative;
+}
+
+.oculto {
+    display: none !important;
+}
+
+.mensaje-exito {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(17, 24, 39, 0.88);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.mensaje-exito h2 {
+    font-size: 2rem;
+    color: #0b9ae7;
+}
+
 /* Estilo del botón para subir imagen */
 input[type="file"] {
     padding: 0.5rem;
