@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json; charset=utf-8");
-require_once __DIR__ . "/verificar_sesion_admin.php";
+require_once __DIR__ . "/verificar_admin.php";
 exigirSesionAdmin();
 require_once __DIR__ . "/conexion.php";
 
