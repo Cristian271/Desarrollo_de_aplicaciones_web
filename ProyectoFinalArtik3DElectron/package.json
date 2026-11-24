@@ -1,0 +1,16 @@
+{
+  "name": "proyectofinalartik3delectron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "test": "jest",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^45.5.0"
+  }
+}

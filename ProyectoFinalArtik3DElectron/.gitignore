@@ -1,0 +1,20 @@
+node_modules
+dist/
+
+node_modules
+dist/
+
+# Archivos de macOS
+.DS_Store
+
+# Archivos de Windows
+Thumbs.db
+
+# Logs y variables de entorno
+*.log
+npm-debug.log*
+.env
+
+# Configuraciones de editores locales
+.vscode/
+.idea/
