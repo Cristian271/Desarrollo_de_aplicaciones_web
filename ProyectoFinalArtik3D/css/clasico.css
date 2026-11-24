@@ -113,11 +113,6 @@ nav {
 
 }
 
-footer{
-    background-color: rgb(0, 1, 5);
-    height: 200px;
-    width: 100%;
-}
 
 
 
@@ -415,42 +410,270 @@ footer{
 /*ULTIMO APARTADO DE OPINIONES*/
 .contenedor-opiniones {
     display: grid;
-    grid-template-columns: repeat(3, 1fr) 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1fr);
     gap: 20px;
     align-items: stretch;
-    margin: 1em 2em 1em 2em;
+    margin: 1em 2.5rem 2.5rem 2.5rem;
 }
 
 .tarjeta {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #111827;
-  border-radius: 12px;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 1.5rem;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .tarjeta-opinion .cabecera-tarjeta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 1em auto 1em 1em
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+.tarjeta-opinion .info-usuario h3 {
+    color: #f6f7f8;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.tarjeta-opinion .estrellas {
+    color: #f59e0b;
+    letter-spacing: 2px;
 }
 
 .tarjeta-opinion .comentario {
-  flex-grow: 1;
-  margin: 1em 1em 1em 1em;
+    flex-grow: 1;
+    color: #cfd5db;
+    line-height: 1.5;
+    margin: 0 0 1.25rem 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
+.tarjeta-opinion .pie-tarjeta {
+    color: #8ec5e99a;
+    font-size: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #1f2937;
+}
 
 .tarjeta-resumen {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
 }
 
 .resumen-superior {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tarjeta-resumen button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #e5e7eb;
+    color: #080b12;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.tarjeta-resumen button:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+}
+/* Sticky footer: mantiene el footer abajo aunque haya poco contenido */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    background-color: #05070c;
+    border-top: 1px solid #1f2937;
+    width: 100%;
+    padding: 2.5rem 2.5rem;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+footer p {
+    color: #8ec5e99a;
+    font-size: 0.9rem;
+}
+
+/* Botón / enlace hacia Panel administrador */
+footer a[href*="validarCredencial"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #d9e2ecc8;
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    padding: 0.65rem 1.3rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, background-color 0.3s ease;
+}
+
+footer a[href*="validarCredencial"]:hover {
+    border-color: #0b9ae7;
+    color: #ffffff;
+    background-color: #1f2937;
+    transform: translateY(-2px);
+}
+
+/* MEDIA QUERIES (PANTALLAS)  */
+@media (max-width: 1024px) {
+    .contenedor-productos-destacados,
+    .contenedor-impresiones-personalizadas {
+        grid-template-columns: repeat(2, minmax(12rem, 1fr));
+    }
+
+    .contenedor-impresiones-personalizadas div:not(:last-child)::after {
+        display: none;
+    }
+
+    .contenedor-opiniones {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contenedor-impresiones-personalizadas-footer {
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 1.5rem;
+    }
+
+    .contenedor-impresiones-personalizadas-footer h3,
+    .contenedor-impresiones-personalizadas-footer h3 + p {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        height: auto;
+        padding-bottom: 2rem;
+    }
+
+    .contenedor-logo-tipo {
+        margin-top: 4.5rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .contenedor-footer-header {
+        width: auto;
+        height: auto;
+        flex-direction: column;
+        gap: 1rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .secciones {
+        width: auto;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .secciones + p {
+        margin-left: 1.5rem;
+    }
+
+    .contenedor-productos-destacados,
+    .contenedor-impresiones-personalizadas,
+    .contenedor-opiniones {
+        grid-template-columns: 1fr;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .contenedor-impresiones-personalizadas div img {
+        transform: none;
+        margin: 0 auto;
+    }
+
+    .contenedor-impresiones-personalizadas-footer {
+        flex-direction: column;
+        text-align: center;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .contenedor-impresiones-personalizadas-footer h3,
+    .contenedor-impresiones-personalizadas-footer h3 + p {
+        margin: 0.5rem auto;
+        width: 100%;
+    }
+
+    .contenedor-impresiones-personalizadas-footer a {
+        margin: 1rem auto 0 auto;
+        width: 15rem;
+        height: 4.5rem;
+    }
+}
+
+/*  MEDIA PRINT */
+@media print {
+    * {
+        background: transparent !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .video-background,
+    .nav-logos,
+    .btn-carrito,
+    #revisarcatalogo,
+    .contenedor-impresiones-personalizadas-footer a,
+    footer a {
+        display: none !important;
+    }
+
+    header {
+        height: auto !important;
+        border-bottom: 1px solid #cccccc;
+        padding-bottom: 1rem;
+    }
+
+    .contenedor-productos-destacados,
+    .contenedor-impresiones-personalizadas,
+    .contenedor-opiniones {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    article,
+    .tarjeta {
+        border: 1px solid #cccccc !important;
+        break-inside: avoid;
+    }
 }

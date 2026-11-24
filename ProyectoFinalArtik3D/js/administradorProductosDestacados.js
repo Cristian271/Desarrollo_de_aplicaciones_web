@@ -12,75 +12,126 @@ if (sessionStorage.getItem('adminAutenticado') !== 'true') {
     const contenedorDestacados = document.getElementById('contenedor-destacados');
     const btnAgregar = document.getElementById('btn-agregar');
     const MAX_PRODUCTOS = 8;
+    let totalDestacadosActuales = 0;
 
-    function obtenerProductosIniciales() {
-        const articulos = contenedorDestacados.querySelectorAll('article');
-        const lista = [];
-        articulos.forEach((articulo) => {
-            const imagen = articulo.querySelector('img').getAttribute('src');
-            const nombre = articulo.querySelector('h3').textContent;
-            const precio = articulo.querySelector('span').textContent;
-            lista.push({ nombre, precio, imagen });
-        });
-        return lista;
-    }
-
-    function cargarProductos() {
-        let productos = JSON.parse(localStorage.getItem('productosDestacados'));
-        if (!productos) {
-            productos = obtenerProductosIniciales();
-            localStorage.setItem('productosDestacados', JSON.stringify(productos));
-        }
-        renderizarProductos(productos);
+    function formatearPrecioDestacados(precio) {
+        const numero = Number(precio);
+        if (Number.isNaN(numero)) return '$0';
+        return Number.isInteger(numero) ? `$${numero}` : `$${numero.toFixed(2)}`;
     }
 
     function renderizarProductos(productos) {
+        if (!contenedorDestacados) return;
         contenedorDestacados.innerHTML = '';
-        productos.forEach((prod, index) => {
+        totalDestacadosActuales = productos.length;
+
+        productos.slice(0, MAX_PRODUCTOS).forEach((prod) => {
             const article = document.createElement('article');
-            article.innerHTML = `
-                <div class="contenedor-imagen">
-                    <img src="${prod.imagen}">
-                </div>
-                <div class="info-producto">
-                    <div>
-                        <h3>${prod.nombre}</h3>
-                        <span>${prod.precio}</span>
-                    </div>
-                    <button class="btn-borrar" data-index="${index}"><img src="assets/images/boton/basura.png" alt="Borrar"></button>
-                </div>
-            `;
+
+            const contImg = document.createElement('div');
+            contImg.className = 'contenedor-imagen';
+
+            const img = document.createElement('img');
+            img.src = prod.imagen || 'assets/images/products/p1.png';
+            img.alt = prod.nombre || 'Producto destacado';
+            contImg.appendChild(img);
+
+            const info = document.createElement('div');
+            info.className = 'info-producto';
+
+            const datosTexto = document.createElement('div');
+            const h3 = document.createElement('h3');
+            h3.textContent = prod.nombre || '';
+
+            const spanPrecio = document.createElement('span');
+            spanPrecio.textContent = formatearPrecioDestacados(prod.precio);
+
+            datosTexto.appendChild(h3);
+            datosTexto.appendChild(spanPrecio);
+
+            const btnBorrar = document.createElement('button');
+            btnBorrar.className = 'btn-borrar';
+            btnBorrar.type = 'button';
+            btnBorrar.dataset.cprod = String(prod.cprod);
+            btnBorrar.dataset.nombre = prod.nombre || 'este producto';
+
+            const imgBasura = document.createElement('img');
+            imgBasura.src = 'assets/images/boton/basura.png';
+            imgBasura.alt = 'Quitar de destacados';
+            btnBorrar.appendChild(imgBasura);
+
+            info.appendChild(datosTexto);
+            info.appendChild(btnBorrar);
+
+            article.appendChild(contImg);
+            article.appendChild(info);
             contenedorDestacados.appendChild(article);
         });
+    }
 
-        const botonesBorrar = contenedorDestacados.querySelectorAll('.btn-borrar');
-        botonesBorrar.forEach((boton) => {
-            boton.addEventListener('click', (e) => {
-                const index = e.currentTarget.getAttribute('data-index');
-                borrarProducto(index);
-            });
+    async function cargarProductos() {
+        try {
+            const respuesta = await fetch('php/listar_productos.php?destacados=1');
+            const data = await respuesta.json();
+            if (respuesta.ok && data.ok && Array.isArray(data.productos)) {
+                renderizarProductos(data.productos);
+            }
+        } catch (error) {
+            console.error('Error al cargar destacados en administrador:', error);
+        }
+    }
+
+    if (contenedorDestacados) {
+        contenedorDestacados.addEventListener('click', async (e) => {
+            const boton = e.target.closest('.btn-borrar');
+            if (!boton) return;
+
+            const cprod = boton.dataset.cprod;
+            const nombre = boton.dataset.nombre || 'este producto';
+            if (!cprod) return;
+
+            const confirmar = confirm(`¿Quitar "${nombre}" de productos destacados?`);
+            if (!confirmar) return;
+
+            boton.disabled = true;
+
+            try {
+                const respuesta = await fetch('php/eliminar_producto.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cprod: Number(cprod), accion: 'quitar_destacado' })
+                });
+                const data = await respuesta.json();
+
+                if (!respuesta.ok || !data.ok) {
+                    alert(data.mensaje || 'No se pudo quitar el producto de destacados.');
+                    boton.disabled = false;
+                    return;
+                }
+
+                localStorage.setItem('ultimaActualizacionProductos', String(Date.now()));
+                await cargarProductos();
+            } catch (error) {
+                console.error('Error al quitar destacado:', error);
+                alert('Error de comunicación con el servidor.');
+                boton.disabled = false;
+            }
         });
     }
 
-    function borrarProducto(index) {
-        const productos = JSON.parse(localStorage.getItem('productosDestacados')) || [];
-        productos.splice(index, 1);
-        localStorage.setItem('productosDestacados', JSON.stringify(productos));
-        renderizarProductos(productos);
+    if (btnAgregar) {
+        btnAgregar.addEventListener('click', () => {
+            if (totalDestacadosActuales >= MAX_PRODUCTOS) {
+                alert('Solo se permite un máximo de 8 productos destacados.');
+                return;
+            }
+            localStorage.setItem('destinoProducto', 'destacados');
+            window.open('agregarProducto.html', 'AgregarProducto', 'width=480,height=680');
+        });
     }
 
-    btnAgregar.addEventListener('click', () => {
-        const productos = JSON.parse(localStorage.getItem('productosDestacados')) || [];
-        if (productos.length >= MAX_PRODUCTOS) {
-            alert('Solo se permite un máximo de 8 productos destacados. Borra alguno antes de añadir uno nuevo.');
-            return;
-        }
-        localStorage.setItem('destinoProducto', 'destacados');
-        window.open('agregarProducto.html', 'AgregarProducto', 'width=480,height=620');
-    });
-
     window.addEventListener('storage', (e) => {
-        if (e.key === 'productosDestacados') {
+        if (e.key === 'ultimaActualizacionProductos') {
             cargarProductos();
         }
     });

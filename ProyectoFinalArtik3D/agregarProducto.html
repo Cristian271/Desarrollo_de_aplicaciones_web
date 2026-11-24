@@ -15,22 +15,40 @@
 
 <body>
     <main>
-        <form id="formulario-producto">
-            <h2>Nuevo <span class="decoracion">Producto</span></h2>
-            <p>Ingresa los datos del artículo para el catálogo</p>
+        <form id="formulario-producto" enctype="multipart/form-data">
+            <h2>Gestionar <span class="decoracion">Producto</span></h2>
+            <p id="subtitulo-modo">Escribe todo manualmente para crear uno nuevo o elige uno existente para actualizarlo</p>
 
-            <label for="imagen-producto">Imagen del producto</label>
-            <input type="file" id="imagen-producto" name="imagen" accept="image/*" required>
+            <input type="hidden" id="cprod-producto" name="cprod" value="">
+            <input type="hidden" id="es-destacado-producto" name="es_destacado" value="0">
+
+            <label for="producto-existente">Producto existente (opcional para actualizar)</label>
+            <select id="producto-existente" name="producto_existente">
+                <option value="">-- Nuevo producto (escribir manualmente) --</option>
+            </select>
+
+            <label for="categoria-producto">Categoría</label>
+            <select id="categoria-producto" name="id_categoria" required>
+                <option value="">Cargando categorías...</option>
+            </select>
 
             <label for="nombre-producto">Nombre del producto</label>
             <input type="text" id="nombre-producto" name="nombre" placeholder="Ej. Nutria articulada" required>
 
             <label for="precio-producto">Precio del producto ($)</label>
-            <input type="number" id="precio-producto" name="precio" placeholder="Ej. 400" min="0" step="1" required>
+            <input type="number" id="precio-producto" name="precio" placeholder="Ej. 400" min="0" step="0.01" required>
+
+            <label for="cantidad-producto">Cantidad en stock</label>
+            <input type="number" id="cantidad-producto" name="cantidad" placeholder="Ej. 5" min="0" step="1" value="0" required>
+
+            <label for="imagen-producto" id="etiqueta-imagen">Imagen del producto</label>
+            <input type="file" id="imagen-producto" name="imagen" accept="image/*" required>
+
+            <p id="mensaje-estado" class="mensaje-estado" aria-live="polite"></p>
 
             <div class="botones-formulario">
-                <button type="button" class="btn-cancelar" onclick="window.close()">Cancelar</button>
-                <button type="submit" class="btn-guardar">Guardar producto</button>
+                <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+                <button type="submit" class="btn-guardar" id="btn-guardar">Guardar producto</button>
             </div>
         </form>
     </main>

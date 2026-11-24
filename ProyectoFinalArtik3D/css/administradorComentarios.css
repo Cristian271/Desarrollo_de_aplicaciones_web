@@ -228,3 +228,70 @@ body {
     color: #ffffff;
     transform: scale(1.1);
 }
+/*  MEDIA QUERIES (PANTALLAS) */
+@media (max-width: 1024px) {
+    .contenedor-comentarios {
+        grid-template-columns: repeat(2, minmax(14rem, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .panel-lateral {
+        position: static;
+        width: 100%;
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid #1f2937;
+    }
+
+    .menu-admin {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+    }
+
+    .contenido-principal {
+        margin-left: 0;
+        padding: 1.5rem;
+    }
+
+    .contenedor-comentarios {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* MEDIA PRINT */
+@media print {
+    * {
+        background: transparent !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+    }
+
+    .panel-lateral,
+    .acciones-comentario {
+        display: none !important;
+    }
+
+    .contenido-principal {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+
+    .contenedor-comentarios {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .tarjeta-opinion {
+        border: 1px solid #cccccc !important;
+        break-inside: avoid;
+    }
+}

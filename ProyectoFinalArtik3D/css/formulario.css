@@ -182,3 +182,37 @@ button {
     color: #eff0f2;
     transform: scale(0.96);
 }
+
+@media (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+
+    form {
+        padding: 1.5rem;
+    }
+
+    .botones-formulario {
+        flex-direction: column;
+    }
+}
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+    }
+
+    form {
+        border: 1px solid #cccccc !important;
+    }
+
+    .botones-formulario {
+        display: none !important;
+    }
+}
