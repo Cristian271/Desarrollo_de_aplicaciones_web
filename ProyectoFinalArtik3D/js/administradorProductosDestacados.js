@@ -3,9 +3,15 @@ if (sessionStorage.getItem('adminAutenticado') !== 'true') {
 } else {
     const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
     if (btnCerrarSesion) {
-        btnCerrarSesion.addEventListener('click', () => {
-            sessionStorage.removeItem('adminAutenticado');
-            window.location.replace('validarCredencial.html');
+        btnCerrarSesion.addEventListener('click', async () => {
+            try {
+                await fetch('php/logout_admin.php', { method: 'POST' });
+            } catch (error) {
+                console.error('Error al cerrar sesión en el servidor:', error);
+            } finally {
+                sessionStorage.removeItem('adminAutenticado');
+                window.location.replace('validarCredencial.html');
+            }
         });
     }
 
