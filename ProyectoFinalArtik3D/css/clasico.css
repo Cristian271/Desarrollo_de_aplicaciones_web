@@ -416,6 +416,15 @@ nav {
     margin: 1em 2.5rem 2.5rem 2.5rem;
 }
 
+.lista-opiniones {
+    grid-column: 1 / 4;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+    min-width: 0;
+}
+
 .tarjeta {
     display: flex;
     flex-direction: column;
@@ -555,7 +564,9 @@ footer a[href*="validarCredencial"]:hover {
         display: none;
     }
 
-    .contenedor-opiniones {
+    .contenedor-opiniones,
+    .lista-opiniones {
+        grid-column: auto;
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -610,6 +621,11 @@ footer a[href*="validarCredencial"]:hover {
         margin-right: 1.5rem;
     }
 
+    .lista-opiniones {
+        grid-column: auto;
+        grid-template-columns: 1fr;
+    }
+    
     .contenedor-impresiones-personalizadas div img {
         transform: none;
         margin: 0 auto;
