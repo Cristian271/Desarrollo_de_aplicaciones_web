@@ -2,7 +2,7 @@ const formularioComentario = document.getElementById('formulario-comentario');
 const mensajeExito = document.getElementById('mensaje-exito');
 
 if (formularioComentario) {
-    formularioComentario.addEventListener('submit', (e) => {
+    formularioComentario.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const nombre = document.getElementById('nombre-cliente').value.trim();
@@ -13,34 +13,41 @@ if (formularioComentario) {
             return;
         }
 
-        const pendientes = JSON.parse(localStorage.getItem('comentariosPendientes')) || [];
+        const btnSubmit = formularioComentario.querySelector('button[type="submit"]');
+        if (btnSubmit) btnSubmit.disabled = true;
 
-        const nuevoComentario = {
-            id: Date.now(),
-            nombre: nombre,
-            calificacion: calificacion,
-            comentario: comentario,
-            fecha: new Date().toLocaleDateString('es-MX', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            })
-        };
+        try {
+            const respuesta = await fetch('php/agregar_comentario.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                body: JSON.stringify({ nombre, calificacion, comentario })
+            });
 
-        pendientes.push(nuevoComentario);
-        localStorage.setItem('comentariosPendientes', JSON.stringify(pendientes));
+            const data = await respuesta.json();
 
-        mensajeExito.classList.remove('oculto');
-
-        setTimeout(() => {
-            window.close();
-
-            /* SOLO PARA PRUEBAS, abrir agregarComentario.html directo en pestaña*/
-            if (window.opener && !window.opener.closed) {
-                window.close();
-            } else {
-                window.location.href = 'index.html';
+            if (!respuesta.ok || !data.ok) {
+                alert(data.mensaje || 'No se pudo enviar tu opinión.');
+                if (btnSubmit) btnSubmit.disabled = false;
+                return;
             }
-        }, 2000);
+
+            localStorage.setItem('ultimaActualizacionComentarios', String(Date.now()));
+            if (window.opener && !window.opener.closed) {
+                try {
+                    window.opener.localStorage.setItem('ultimaActualizacionComentarios', String(Date.now()));
+                } catch (err) {
+                }
+            }
+
+            mensajeExito.classList.remove('oculto');
+
+            setTimeout(() => {
+                window.close();
+            }, 2000);
+        } catch (error) {
+            console.error('Error al enviar comentario:', error);
+            alert('Error de conexión con el servidor al enviar tu opinión.');
+            if (btnSubmit) btnSubmit.disabled = false;
+        }
     });
 }

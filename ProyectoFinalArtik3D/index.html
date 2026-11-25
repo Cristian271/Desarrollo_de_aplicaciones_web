@@ -100,27 +100,17 @@
             <h2 class="secciones">Lo que dicen nuestros clientes</h2>
             <p>Tu opinión nos ayuda a mejorar</p>
             <div class="contenedor-opiniones">
-                <div class="tarjeta tarjeta-opinion">
-                    <div class="cabecera-tarjeta">
-                        <div class="avatar"></div>
-                        <div class="info-usuario">
-                            <h3>Sofía R.</h3>
-                            <div class="estrellas">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="comentario">La calidad de impresión es increíble, los detalles se ven geniales y el envío fue más rápido de lo que esperaba. Definitivamente volveré a comprar.</p>
-                    <div class="pie-tarjeta">12 jun. 2025</div>
-                </div>
+                <div class="lista-opiniones" id="contenedor-opiniones-index"></div>
                 <div class="tarjeta tarjeta-resumen">
                     <div class="resumen-superior">
                         <div>
-                            <span>★</span>
-                            <span>4.8</span><span>/5</span>
+                            <span class="estrella-resumen">★</span>
+                            <span class="nota-resumen" id="promedio-opiniones">0.0</span><span class="sobre-cinco">/5</span>
                         </div>
-                        <span>★★★★★</span>
-                        <span>Basado en 248 opiniones</span>
+                        <span class="estrellas-resumen" id="estrellas-promedio">☆☆☆☆☆</span>
+                        <span class="conteo-resumen" id="total-opiniones">Sin reseñas aún</span>
                     </div>
-                    <button type="button">Dejar opinión →</button>
+                    <button type="button" id="btn-dejar-opinion">Dejar opinión →</button>
                 </div>
             </div>
         </section>
