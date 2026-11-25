@@ -55,6 +55,11 @@ function renderizarCatalogoTienda(productos) {
         btnCarrito.className = 'btn-carrito';
         btnCarrito.type = 'button';
         btnCarrito.textContent = '🛒';
+        btnCarrito.addEventListener('click', () => {
+            if (typeof agregarAlCarrito === 'function') {
+                agregarAlCarrito(prod);
+            }
+        });
 
         info.appendChild(datosTexto);
         info.appendChild(btnCarrito);

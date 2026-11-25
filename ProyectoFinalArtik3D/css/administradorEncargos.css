@@ -1,0 +1,274 @@
+/* Lista y tarjetas de encargos dentro de .contenido-principal */
+.contenedor-encargos {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.encargo-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-left: 5px solid #1d4ed8; /* Azul oscuro acorde a la paleta */
+    border-radius: 12px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.encargo-card:hover,
+.encargo-card.seleccionada {
+    transform: translateY(-3px);
+    border-color: #38bdf8;
+    border-left-color: #38bdf8; /* Azul claro al pasar o seleccionar */
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.14);
+}
+
+.encargo-card.estado-finalizado {
+    border-left-color: #0284c7;
+}
+
+.encargo-card.estado-rechazado {
+    border-left-color: #334155;
+    opacity: 0.75;
+}
+
+.encargo-info h3 {
+    font-size: 1.15rem;
+    color: #f6f7f8;
+    margin-bottom: 0.4rem;
+}
+
+.encargo-info p {
+    font-size: 0.9rem;
+    color: #d9e2ecc8;
+    margin: 0.25rem 0;
+}
+
+.encargo-acciones {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Botones de acciones */
+.btn-admin {
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #2c394d;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.btn-admin:hover {
+    transform: scale(1.03);
+}
+
+.btn-ver { background-color: #1d4ed8; border-color: #2563eb; }
+.btn-pdf { background-color: #1f2937; border-color: #425978; }
+.btn-actualizar { background-color: #0284c7; border-color: #38bdf8; }
+.btn-actualizar:hover { background-color: #0369a1; }
+.btn-finalizar { background-color: #059669; border-color: #10b981; }
+.btn-rechazar { background-color: #b91c1c; border-color: #ef4444; }
+
+/* Panel lateral derecho desplegable con scroll */
+.panel-detalle-encargo {
+    position: fixed;
+    top: 0;
+    right: -460px;
+    width: 440px;
+    max-width: 100%;
+    height: 100vh;
+    background-color: #111827;
+    border-left: 1px solid #425978;
+    box-shadow: -8px 0 25px rgba(0, 0, 0, 0.75);
+    padding: 1.5rem;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    z-index: 300;
+    color: #ffffff;
+}
+
+.panel-detalle-encargo.abierto {
+    right: 0;
+}
+
+.panel-lateral-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #1f2937;
+}
+
+.etiqueta-panel {
+    font-weight: 700;
+    color: #38bdf8;
+    font-size: 0.95rem;
+}
+
+.btn-cerrar-panel {
+    background-color: #1f2937;
+    color: #ffffff;
+    border: 1px solid #425978;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.ticket-cabecera {
+    background-color: #080b12;
+    border: 1px solid #1f2937;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.ticket-cabecera h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #ecebeb;
+}
+
+.ticket-cabecera p {
+    font-size: 0.9rem;
+    color: #d9e2ecc8;
+    margin: 0.25rem 0;
+}
+
+/* Fila de producto: Producto [cantidad] [X] todo en una línea */
+.detalle-item-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #1f2937;
+}
+
+.detalle-item-nombre {
+    font-size: 0.95rem;
+    color: #f6f7f8;
+    font-weight: 600;
+    flex: 1;
+}
+
+.detalle-item-cant-fija {
+    font-size: 0.95rem;
+    color: #8ec5e9;
+    font-weight: 600;
+}
+
+.detalle-item-controles {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detalle-item-controles input[type="number"] {
+    width: 64px;
+    padding: 0.4rem;
+    text-align: center;
+    background-color: #080b12;
+    color: #ffffff;
+    border: 1px solid #425978;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-quitar-linea {
+    width: 30px;
+    height: 30px;
+    background-color: #b91c1c;
+    border: 1px solid #ef4444;
+    color: #ffffff;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-quitar-linea:hover {
+    background-color: #dc2626;
+    transform: scale(1.08);
+}
+
+/* Botones inferiores simétricos en una misma línea */
+.panel-acciones-finales {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.panel-acciones-finales.cuatro-botones {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.panel-acciones-finales.un-boton {
+    grid-template-columns: 1fr;
+}
+
+.panel-acciones-finales .btn-admin {
+    width: 100%;
+    padding: 0.55rem 0.25rem;
+    font-size: 0.78rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .encargo-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .panel-detalle-encargo {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+/* Impresión */
+@media print {
+    .panel-lateral,
+    .encargo-acciones,
+    .panel-acciones-finales,
+    .panel-lateral-cabecera,
+    .btn-quitar-linea,
+    .btn-admin {
+        display: none !important;
+    }
+
+    .panel-detalle-encargo {
+        position: static;
+        width: 100%;
+        height: auto;
+        border: none !important;
+        overflow: visible;
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .encargo-card,
+    .ticket-cabecera {
+        border: 1px solid #cccccc !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+}

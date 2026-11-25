@@ -65,15 +65,16 @@ function renderizarDestacadosIndex(productos) {
 
         datosTexto.appendChild(h3);
         datosTexto.appendChild(spanPrecio);
-
+        
         const btnCarrito = document.createElement('button');
         btnCarrito.className = 'btn-carrito';
         btnCarrito.type = 'button';
         btnCarrito.textContent = '🛒';
-        if (index === 0) {
-            btnCarrito.id = 'btn-compra';
-            btnCarrito.value = 'agregar';
-        }
+        btnCarrito.addEventListener('click', () => {
+            if (typeof agregarAlCarrito === 'function') {
+                agregarAlCarrito(prod);
+            }
+        });
 
         info.appendChild(datosTexto);
         info.appendChild(btnCarrito);
