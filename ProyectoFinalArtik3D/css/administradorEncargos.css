@@ -1,64 +1,69 @@
-/* Lista y tarjetas de encargos dentro de .contenido-principal */
 .contenedor-encargos {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(12rem, 1fr));
+    gap: 1.25rem;
     margin-top: 1.5rem;
+    align-items: stretch;
 }
 
 .encargo-card {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 1.5rem;
+    gap: 0.85rem;
+    padding: 1.15rem 1.25rem;
     background-color: #111827;
     border: 1px solid #1f2937;
-    border-left: 5px solid #1d4ed8; /* Azul oscuro acorde a la paleta */
-    border-radius: 12px;
-    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    border-top: 2px solid #2563eb; /* Línea superior delgada y discreta */
+    border-radius: 10px;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
 }
 
 .encargo-card:hover,
 .encargo-card.seleccionada {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     border-color: #38bdf8;
-    border-left-color: #38bdf8; /* Azul claro al pasar o seleccionar */
-    box-shadow: 0 0 14px rgba(56, 189, 248, 0.14);
+    border-top-color: #38bdf8;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.12);
 }
 
-.encargo-card.estado-finalizado {
-    border-left-color: #0284c7;
-}
-
-.encargo-card.estado-rechazado {
-    border-left-color: #334155;
-    opacity: 0.75;
+.encargo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
 }
 
 .encargo-info h3 {
-    font-size: 1.15rem;
+    font-size: 1.08rem;
+    font-weight: 700;
     color: #f6f7f8;
-    margin-bottom: 0.4rem;
+    line-height: 1.3;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid #1f2937;
 }
 
 .encargo-info p {
-    font-size: 0.9rem;
-    color: #d9e2ecc8;
-    margin: 0.25rem 0;
+    font-size: 0.86rem;
+    color: #94a3b8;
+    line-height: 1.45;
 }
 
 .encargo-acciones {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 0.4rem;
 }
 
 /* Botones de acciones */
 .btn-admin {
-    padding: 0.55rem 1rem;
-    border-radius: 8px;
+    padding: 0.5rem 0.4rem;
+    border-radius: 7px;
     border: 1px solid #2c394d;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
@@ -230,12 +235,16 @@
     font-size: 0.78rem;
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
-    .encargo-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
+/* Responsividad igual que el catálogo */
+@media (max-width: 1100px) {
+    .contenedor-encargos {
+        grid-template-columns: repeat(2, minmax(12rem, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .contenedor-encargos {
+        grid-template-columns: 1fr;
     }
 
     .panel-detalle-encargo {

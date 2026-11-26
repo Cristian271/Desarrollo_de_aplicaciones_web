@@ -42,7 +42,7 @@ function renderizarDestacadosIndex(productos) {
     if (!contenedorDestacados) return;
     contenedorDestacados.innerHTML = '';
 
-    productos.slice(0, 8).forEach((prod, index) => {
+    productos.slice(0, 8).forEach((prod) => {
         const article = document.createElement('article');
 
         const contImg = document.createElement('div');
@@ -65,11 +65,17 @@ function renderizarDestacadosIndex(productos) {
 
         datosTexto.appendChild(h3);
         datosTexto.appendChild(spanPrecio);
-        
+
         const btnCarrito = document.createElement('button');
         btnCarrito.className = 'btn-carrito';
         btnCarrito.type = 'button';
-        btnCarrito.textContent = '🛒';
+        btnCarrito.title = 'Agregar al carrito';
+
+        const imgCarrito = document.createElement('img');
+        imgCarrito.src = 'assets/images/boton/carritoCompras.png';
+        imgCarrito.alt = 'Agregar al carrito';
+        btnCarrito.appendChild(imgCarrito);
+
         btnCarrito.addEventListener('click', () => {
             if (typeof agregarAlCarrito === 'function') {
                 agregarAlCarrito(prod);

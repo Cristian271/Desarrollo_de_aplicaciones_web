@@ -12,6 +12,7 @@ $sqlEncargos = "
     FROM Encargos e
     LEFT JOIN Detalle_Encargos de ON e.id_encargo = de.id_encargo
     LEFT JOIN Productos p ON de.cprod = p.cprod
+    WHERE e.estado = 'pendiente'
     GROUP BY e.id_encargo
     ORDER BY e.id_encargo DESC
 ";

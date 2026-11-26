@@ -1,6 +1,7 @@
 const navLogos = document.querySelector('.nav-logos');
 
 window.addEventListener('scroll', () => {
+    if (!navLogos) return;
     if (window.scrollY > 20) {
         navLogos.classList.add('nav-scroll');
     } else {
@@ -54,7 +55,13 @@ function renderizarCatalogoTienda(productos) {
         const btnCarrito = document.createElement('button');
         btnCarrito.className = 'btn-carrito';
         btnCarrito.type = 'button';
-        btnCarrito.textContent = '🛒';
+        btnCarrito.title = 'Agregar al carrito';
+
+        const imgCarrito = document.createElement('img');
+        imgCarrito.src = 'assets/images/boton/carritoCompras.png';
+        imgCarrito.alt = 'Agregar al carrito';
+        btnCarrito.appendChild(imgCarrito);
+
         btnCarrito.addEventListener('click', () => {
             if (typeof agregarAlCarrito === 'function') {
                 agregarAlCarrito(prod);
