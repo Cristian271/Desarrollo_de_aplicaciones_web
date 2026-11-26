@@ -6,11 +6,11 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0">
     <title>Administrar Tienda - Artik3D</title>
-    <link rel="stylesheet" href="css/administradorTienda.css">
+    <link rel="stylesheet" href="css/administradorTienda.css?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="js/administradorTienda.js" defer></script>
+    <script src="js/administradorTienda.js?v=2" defer></script>
 </head>
 
 <body>
@@ -36,6 +36,32 @@
             </div>
             <button class="btn-agregar" id="btn-agregar">+ Añadir producto</button>
         </div>
+
+        <section class="barra-busqueda-admin" aria-label="Buscador de productos en administrador">
+            <form id="form-busqueda-admin" class="buscador-admin" role="search">
+                <label for="input-buscar-admin" class="sr-only">Buscar producto por nombre</label>
+                <div class="buscador-input-wrapper">
+                    <img src="assets/images/lupa.png" class="icono-lupa" alt="" aria-hidden="true">
+                    <input
+                        type="search"
+                        id="input-buscar-admin"
+                        name="q"
+                        maxlength="120"
+                        autocomplete="off"
+                        placeholder="Buscar producto por nombre..."
+                        aria-label="Buscar producto por nombre">
+                    <button
+                        type="button"
+                        id="btn-limpiar-busqueda-admin"
+                        class="btn-limpiar-busqueda"
+                        title="Limpiar búsqueda"
+                        aria-label="Limpiar búsqueda"
+                        hidden>&times;</button>
+                </div>
+                <button type="submit" class="btn-buscar-admin">Buscar</button>
+            </form>
+            <p id="estado-busqueda-admin" class="estado-busqueda" aria-live="polite"></p>
+        </section>
 
         <section class="contenedor-catalogo" id="contenedor-catalogo"></section>
     </main>

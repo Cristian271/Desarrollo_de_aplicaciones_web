@@ -130,6 +130,134 @@ body {
     transform: scale(0.96);
 }
 
+/* Buscador de productos en panel administrador */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.barra-busqueda-admin {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.buscador-admin {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 34rem;
+    width: 100%;
+}
+
+.buscador-input-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.icono-lupa {
+    position: absolute;
+    left: 0.85rem;
+    width: 1.15rem;
+    height: 1.15rem;
+    object-fit: contain;
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+#input-buscar-admin {
+    width: 100%;
+    padding: 0.75rem 2.4rem 0.75rem 2.65rem;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    background-color: #111827;
+    color: #ffffff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+#input-buscar-admin::placeholder {
+    color: #8ec5e97a;
+}
+
+#input-buscar-admin:focus {
+    border-color: #0b9ae7;
+    box-shadow: 0 0 0 3px rgba(11, 154, 231, 0.18);
+}
+
+#input-buscar-admin::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.btn-limpiar-busqueda {
+    position: absolute;
+    right: 0.6rem;
+    background: transparent;
+    border: none;
+    color: #8ec5e9;
+    font-size: 1.35rem;
+    line-height: 1;
+    padding: 0.2rem 0.35rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-limpiar-busqueda:hover {
+    color: #ffffff;
+    background-color: rgba(11, 154, 231, 0.18);
+}
+
+.btn-buscar-admin {
+    padding: 0.75rem 1.35rem;
+    border-radius: 10px;
+    border: 1px solid #0b9ae7;
+    background-color: #0b9ae7;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.btn-buscar-admin:hover {
+    background-color: #0099ff;
+    transform: translateY(-1px);
+}
+
+.estado-busqueda {
+    min-height: 1.2rem;
+    font-size: 0.88rem;
+    color: #8ec5e9;
+}
+
+.estado-busqueda.estado-error {
+    color: #f87171;
+}
+
+.mensaje-sin-resultados {
+    grid-column: 1 / -1;
+    padding: 2rem 1.5rem;
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    color: #d9e2ec;
+    text-align: center;
+    font-size: 1rem;
+}
+
 /* Cuadrícula y tarjetas igual que tienda.html */
 .contenedor-catalogo {
     display: grid;
@@ -247,6 +375,15 @@ body {
         gap: 1rem;
     }
 
+    .buscador-admin {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-buscar-admin {
+        width: 100%;
+    }
+
     .contenedor-catalogo {
         grid-template-columns: 1fr;
     }
@@ -266,7 +403,8 @@ body {
 
     .panel-lateral,
     .btn-agregar,
-    .btn-borrar {
+    .btn-borrar,
+    .barra-busqueda-admin {
         display: none !important;
     }
 

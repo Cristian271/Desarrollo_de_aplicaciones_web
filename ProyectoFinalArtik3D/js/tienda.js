@@ -10,6 +10,17 @@ window.addEventListener('scroll', () => {
 });
 
 const contenedorCatalogo = document.querySelector('.contenedor-catalogo');
+const formBusqueda = document.getElementById('form-busqueda-tienda');
+const inputBuscar = document.getElementById('input-buscar-producto');
+const btnLimpiarBusqueda = document.getElementById('btn-limpiar-busqueda');
+const estadoBusqueda = document.getElementById('estado-busqueda');
+
+const LONGITUD_MAX_BUSQUEDA = 120;
+const DEBOUNCE_BUSQUEDA_MS = 280;
+
+let controladorBusquedaActual = null;
+let temporizadorBusqueda = null;
+let ultimoTerminoBuscado = '';
 
 function formatearPrecio(precio) {
     const numero = Number(precio);
@@ -17,13 +28,44 @@ function formatearPrecio(precio) {
     return Number.isInteger(numero) ? `$${numero}` : `$${numero.toFixed(2)}`;
 }
 
-function renderizarCatalogoTienda(productos) {
+function obtenerRutaImagenSegura(ruta) {
+    const valor = typeof ruta === 'string' ? ruta.trim() : '';
+    if (valor.startsWith('assets/') || valor.startsWith('https://') || valor.startsWith('http://')) {
+        return valor;
+    }
+    return 'assets/images/products/p1.png';
+}
+
+function sanitizarTerminoBusqueda(texto) {
+    if (typeof texto !== 'string') return '';
+    return texto
+        .replace(/[\u0000-\u001F\u007F]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, LONGITUD_MAX_BUSQUEDA);
+}
+
+function actualizarEstadoBusqueda(mensaje, esError = false) {
+    if (!estadoBusqueda) return;
+    estadoBusqueda.textContent = mensaje;
+    estadoBusqueda.classList.toggle('estado-error', esError);
+}
+
+function actualizarBotonLimpiar() {
+    if (!btnLimpiarBusqueda || !inputBuscar) return;
+    btnLimpiarBusqueda.hidden = inputBuscar.value.trim().length === 0;
+}
+
+function renderizarCatalogoTienda(productos, terminoBuscado = '') {
     if (!contenedorCatalogo) return;
     contenedorCatalogo.innerHTML = '';
 
     if (!Array.isArray(productos) || productos.length === 0) {
         const aviso = document.createElement('p');
-        aviso.textContent = 'No hay productos disponibles por el momento.';
+        aviso.className = 'mensaje-sin-resultados';
+        aviso.textContent = terminoBuscado
+            ? `No se encontraron productos que coincidan con "${terminoBuscado}".`
+            : 'No hay productos disponibles por el momento.';
         contenedorCatalogo.appendChild(aviso);
         return;
     }
@@ -35,7 +77,7 @@ function renderizarCatalogoTienda(productos) {
         contImg.className = 'contenedor-imagen';
 
         const img = document.createElement('img');
-        img.src = prod.imagen || 'assets/images/products/p1.png';
+        img.src = obtenerRutaImagenSegura(prod.imagen);
         img.alt = prod.nombre || 'Producto';
         contImg.appendChild(img);
 
@@ -77,22 +119,84 @@ function renderizarCatalogoTienda(productos) {
     });
 }
 
-async function cargarCatalogoTienda() {
+async function buscarProductosTienda(terminoRaw = '') {
+    const termino = sanitizarTerminoBusqueda(terminoRaw);
+    ultimoTerminoBuscado = termino;
+
+    if (controladorBusquedaActual) {
+        controladorBusquedaActual.abort();
+    }
+    controladorBusquedaActual = new AbortController();
+
+    if (termino) {
+        actualizarEstadoBusqueda(`Buscando "${termino}"...`);
+    } else {
+        actualizarEstadoBusqueda('');
+    }
+
     try {
-        const respuesta = await fetch('php/listar_productos.php?publico=1');
+        const url = `php/buscar_productos.php?q=${encodeURIComponent(termino)}`;
+        const respuesta = await fetch(url, {
+            method: 'GET',
+            headers: { Accept: 'application/json' },
+            signal: controladorBusquedaActual.signal
+        });
+
         const data = await respuesta.json();
-        if (respuesta.ok && data.ok) {
-            renderizarCatalogoTienda(data.productos);
+        if (!respuesta.ok || !data.ok) {
+            actualizarEstadoBusqueda(data.mensaje || 'No se pudo realizar la búsqueda.', true);
+            return;
+        }
+
+        const productos = Array.isArray(data.productos) ? data.productos : [];
+        renderizarCatalogoTienda(productos, termino);
+
+        if (termino) {
+            const etiqueta = productos.length === 1 ? 'producto encontrado' : 'productos encontrados';
+            actualizarEstadoBusqueda(`${productos.length} ${etiqueta} para "${termino}".`);
+        } else {
+            actualizarEstadoBusqueda('');
         }
     } catch (error) {
-        console.error('Error al cargar el catálogo de la tienda:', error);
+        if (error && error.name === 'AbortError') {
+            return;
+        }
+        console.error('Error al buscar productos en la tienda:', error);
+        actualizarEstadoBusqueda('Ocurrió un error al consultar el catálogo.', true);
     }
+}
+
+if (formBusqueda && inputBuscar) {
+    formBusqueda.addEventListener('submit', (e) => {
+        e.preventDefault();
+        clearTimeout(temporizadorBusqueda);
+        buscarProductosTienda(inputBuscar.value);
+    });
+
+    inputBuscar.addEventListener('input', () => {
+        actualizarBotonLimpiar();
+        clearTimeout(temporizadorBusqueda);
+        temporizadorBusqueda = setTimeout(() => {
+            buscarProductosTienda(inputBuscar.value);
+        }, DEBOUNCE_BUSQUEDA_MS);
+    });
+}
+
+if (btnLimpiarBusqueda && inputBuscar) {
+    btnLimpiarBusqueda.addEventListener('click', () => {
+        clearTimeout(temporizadorBusqueda);
+        inputBuscar.value = '';
+        actualizarBotonLimpiar();
+        inputBuscar.focus();
+        buscarProductosTienda('');
+    });
 }
 
 window.addEventListener('storage', (e) => {
     if (e.key === 'productosTienda') {
-        cargarCatalogoTienda();
+        buscarProductosTienda(ultimoTerminoBuscado);
     }
 });
 
-cargarCatalogoTienda();
+actualizarBotonLimpiar();
+buscarProductosTienda('');
