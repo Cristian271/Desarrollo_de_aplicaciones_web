@@ -6,12 +6,12 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0">
     <title>Tienda - Artik3D</title>
-    <link rel="stylesheet" href="css/tienda.css?v=2">
+    <link rel="stylesheet" href="css/tienda.css?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="js/tienda.js?v=2" defer></script>
-    <script src="js/carrito.js" defer></script>
+    <script src="js/carrito.js?v=3" defer></script>
 </head>
 
 <body>
@@ -21,7 +21,25 @@
             <div class="nav-logos">
                 <div class="nav-links">
                     <a href="index.html">Inicio</a>
-                    <a>Contacto</a>
+                    <div class="contacto-nav-wrapper">
+                        <button type="button" class="btn-contacto-nav" aria-expanded="false" aria-controls="menu-contacto">Contacto</button>
+                        <div id="menu-contacto" class="menu-contacto-dropdown" hidden>
+                            <a href="https://wa.me/529999077068" target="_blank" rel="noopener noreferrer" class="opcion-contacto opcion-whatsapp">
+                                <img src="assets/images/logo_whats.png" alt="WhatsApp">
+                                <div>
+                                    <strong>WhatsApp</strong>
+                                    <span>+52 999 907 7068</span>
+                                </div>
+                            </a>
+                            <a href="https://www.facebook.com/share/1UoAKD67jd/" target="_blank" rel="noopener noreferrer" class="opcion-contacto opcion-facebook">
+                                <img src="assets/images/logo_facebook.png" alt="Facebook">
+                                <div>
+                                    <strong>Facebook</strong>
+                                    <span>Artik3D</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <a href="#" class="btn-carrito-nav" title="Ver carrito">
                     <img src="assets/images/boton/carritoCompras.png" alt="Carrito de compras">

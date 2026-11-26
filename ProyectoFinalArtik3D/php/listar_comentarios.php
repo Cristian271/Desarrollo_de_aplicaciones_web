@@ -1,8 +1,13 @@
 <?php
 header("Content-Type: application/json; charset=utf-8");
-require_once __DIR__ . "/conexion.php";
 
 $soloPublico = isset($_GET["publico"]) && $_GET["publico"] === "1";
+if (!$soloPublico) {
+    require_once __DIR__ . "/verificar_admin.php";
+    exigirSesionAdmin();
+}
+
+require_once __DIR__ . "/conexion.php";
 
 function formatearFechaEs(string $fechaSql): string {
     $timestamp = strtotime($fechaSql);
@@ -56,9 +61,6 @@ if ($soloPublico) {
 }
 
 // Vista de administrador
-require_once __DIR__ . "/verificar_admin.php";
-exigirSesionAdmin();
-
 $sql = "SELECT id_comentario, nombre_cliente, calificacion, comentario, estado, creado_en
         FROM Comentarios
         ORDER BY id_comentario DESC";

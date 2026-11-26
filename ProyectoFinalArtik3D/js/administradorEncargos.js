@@ -13,6 +13,11 @@ async function cargarEncargos() {
 
     try {
         const res = await fetch(`${RUTA_PHP}listar_encargo.php`);
+        if (res.status === 401) {
+            sessionStorage.removeItem('adminAutenticado');
+            window.location.replace('validarCredencial.html');
+            return;
+        }
         const textoRespuesta = await res.text();
 
         let data;
@@ -247,6 +252,11 @@ async function actualizarTodasLasCantidades(listaInputs) {
                     cantidad: nuevaCant
                 })
             });
+            if (res.status === 401) {
+                sessionStorage.removeItem('adminAutenticado');
+                window.location.replace('validarCredencial.html');
+                return;
+            }
             const data = await res.json();
             if (!data.ok) {
                 alert(data.mensaje || 'Error al actualizar una cantidad.');
@@ -267,6 +277,11 @@ async function enviarAccionEncargo(payload) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
+        if (res.status === 401) {
+            sessionStorage.removeItem('adminAutenticado');
+            window.location.replace('validarCredencial.html');
+            return;
+        }
         const data = await res.json();
         if (!data.ok) {
             alert(data.mensaje || 'Error al actualizar el encargo.');
@@ -284,9 +299,15 @@ async function enviarAccionEncargo(payload) {
 document.addEventListener('DOMContentLoaded', () => {
     const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
     if (btnCerrarSesion) {
-        btnCerrarSesion.addEventListener('click', () => {
-            sessionStorage.removeItem('adminAutenticado');
-            window.location.replace('validarCredencial.html');
+        btnCerrarSesion.addEventListener('click', async () => {
+            try {
+                await fetch(`${RUTA_PHP}logout_admin.php`, { method: 'POST' });
+            } catch (error) {
+                console.error('Error al cerrar sesión en el servidor:', error);
+            } finally {
+                sessionStorage.removeItem('adminAutenticado');
+                window.location.replace('validarCredencial.html');
+            }
         });
     }
 

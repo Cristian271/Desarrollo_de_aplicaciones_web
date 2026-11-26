@@ -1,6 +1,15 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+require_once __DIR__ . '/verificar_admin.php';
+exigirSesionAdmin();
 require_once __DIR__ . '/conexion.php';
+
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['ok' => false, 'mensaje' => 'Método no permitido.'], JSON_UNESCAPED_UNICODE);
+    mysqli_close($conexion);
+    exit;
+}
 
 $input = json_decode(file_get_contents('php://input'), true);
 $accion = $input['accion'] ?? '';

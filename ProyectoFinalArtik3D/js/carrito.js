@@ -25,10 +25,10 @@ function asegurarPanelCarritoEnDOM() {
         </div>
         <form id="form-confirmar-encargo" class="carrito-formulario">
             <label for="carrito-nombre-cliente">Tu nombre completo:</label>
-            <input type="text" id="carrito-nombre-cliente" required placeholder="Ej. Alan Morales">
+            <input type="text" id="carrito-nombre-cliente" maxlength="120" required placeholder="Ej. Alan Morales">
 
-            <label for="carrito-telefono-cliente">Teléfono de contacto:</label>
-            <input type="tel" id="carrito-telefono-cliente" required placeholder="Ej. 9991234567">
+            <label for="carrito-telefono-cliente">Teléfono de contacto (10 dígitos):</label>
+            <input type="tel" id="carrito-telefono-cliente" inputmode="numeric" maxlength="10" minlength="10" pattern="[0-9]{10}" required placeholder="Ej. 9991234567" title="Ingresa exactamente 10 dígitos numéricos">
 
             <button type="submit" class="btn-confirmar-encargo">Confirmar Encargo</button>
         </form>
@@ -230,6 +230,14 @@ function renderizarPanelCarrito() {
     totalEl.textContent = `$${total.toFixed(2)}`;
 }
 
+function normalizarTelefono(valor) {
+    return String(valor || '').replace(/\D/g, '').slice(0, 10);
+}
+
+function esTelefonoValido(valor) {
+    return /^\d{10}$/.test(valor);
+}
+
 async function enviarEncargoDesdeCarrito(e) {
     e.preventDefault();
     if (carrito.length === 0) {
@@ -242,8 +250,15 @@ async function enviarEncargoDesdeCarrito(e) {
     const nombre = inputNombre ? inputNombre.value.trim() : '';
     const telefono = inputTelefono ? inputTelefono.value.trim() : '';
 
-    if (!nombre || !telefono) {
-        alert('Por favor ingresa tu nombre y teléfono.');
+    if (!nombre || nombre.length > 120) {
+        alert('Por favor ingresa un nombre válido.');
+        if (inputNombre) inputNombre.focus();
+        return;
+    }
+
+    if (!esTelefonoValido(telefono)) {
+        alert('Por favor ingresa un número telefónico válido.');
+        if (inputTelefono) inputTelefono.focus();
         return;
     }
 
@@ -277,7 +292,39 @@ async function enviarEncargoDesdeCarrito(e) {
     }
 }
 
+function inicializarMenuContacto() {
+    const wrapper = document.querySelector('.contacto-nav-wrapper');
+    const boton = document.querySelector('.btn-contacto-nav');
+    const menu = document.getElementById('menu-contacto');
+    if (!wrapper || !boton || !menu) return;
+
+    function cerrarMenu() {
+        menu.hidden = true;
+        boton.setAttribute('aria-expanded', 'false');
+    }
+
+    boton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const abrir = menu.hidden;
+        menu.hidden = !abrir;
+        boton.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!wrapper.contains(e.target)) {
+            cerrarMenu();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            cerrarMenu();
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    inicializarMenuContacto();
     asegurarPanelCarritoEnDOM();
     cargarCarritoDesdeStorage();
     renderizarPanelCarrito();
@@ -288,7 +335,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputTelefono = document.getElementById('carrito-telefono-cliente');
         const nombreGuardado = datosGuardados.nombre_cliente || datosGuardados.nombre;
         if (inputNombre && nombreGuardado) inputNombre.value = nombreGuardado;
-        if (inputTelefono && datosGuardados.telefono) inputTelefono.value = datosGuardados.telefono;
+        if (inputTelefono && datosGuardados.telefono) {
+            inputTelefono.value = normalizarTelefono(datosGuardados.telefono);
+        }
+    }
+
+    const inputTelefono = document.getElementById('carrito-telefono-cliente');
+    if (inputTelefono) {
+        inputTelefono.addEventListener('input', () => {
+            const soloDigitos = normalizarTelefono(inputTelefono.value);
+            if (inputTelefono.value !== soloDigitos) {
+                inputTelefono.value = soloDigitos;
+            }
+        });
     }
 
     const botonesAbrir = document.querySelectorAll('.btn-carrito-nav, .nav-logos > a');

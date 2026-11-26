@@ -2,14 +2,43 @@
 header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/conexion.php';
 
-$input = json_decode(file_get_contents('php://input'), true);
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['ok' => false, 'mensaje' => 'Método no permitido.'], JSON_UNESCAPED_UNICODE);
+    mysqli_close($conexion);
+    exit;
+}
 
-$nombre = trim($input['nombre_cliente'] ?? '');
-$telefono = trim($input['telefono'] ?? '');
+$input = json_decode(file_get_contents('php://input'), true);
+if (!is_array($input)) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'mensaje' => 'Solicitud con formato inválido.'], JSON_UNESCAPED_UNICODE);
+    mysqli_close($conexion);
+    exit;
+}
+
+$nombre = trim((string)($input['nombre_cliente'] ?? ''));
+$telefono = trim((string)($input['telefono'] ?? ''));
 $carrito = $input['carrito'] ?? [];
 
-if ($nombre === '' || $telefono === '' || !is_array($carrito) || count($carrito) === 0) {
-    echo json_encode(['ok' => false, 'mensaje' => 'Datos del cliente o carrito incompletos.']);
+if ($nombre === '' || mb_strlen($nombre, 'UTF-8') > 120) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'mensaje' => 'Ingresa un nombre válido (máximo 120 caracteres).'], JSON_UNESCAPED_UNICODE);
+    mysqli_close($conexion);
+    exit;
+}
+
+if (preg_match('/^\d{10}$/', $telefono) !== 1) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'mensaje' => 'El teléfono debe contener exactamente 10 dígitos numéricos.'], JSON_UNESCAPED_UNICODE);
+    mysqli_close($conexion);
+    exit;
+}
+
+if (!is_array($carrito) || count($carrito) === 0) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'mensaje' => 'El carrito está vacío o no es válido.'], JSON_UNESCAPED_UNICODE);
+    mysqli_close($conexion);
     exit;
 }
 

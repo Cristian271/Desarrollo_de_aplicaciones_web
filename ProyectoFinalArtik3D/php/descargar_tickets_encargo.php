@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/verificar_admin.php';
+exigirSesionAdmin();
 require_once __DIR__ . '/conexion.php';
 
 $idEncargo = (int)($_GET['id_encargo'] ?? 0);
