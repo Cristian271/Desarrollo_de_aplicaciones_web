@@ -620,29 +620,6 @@ footer p {
     font-size: 0.9rem;
 }
 
-/* Botón / enlace hacia Panel administrador */
-footer a[href*="validarCredencial"] {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    color: #d9e2ecc8;
-    background-color: #111827;
-    border: 1px solid #1f2937;
-    padding: 0.65rem 1.3rem;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, background-color 0.3s ease;
-}
-
-footer a[href*="validarCredencial"]:hover {
-    border-color: #0b9ae7;
-    color: #ffffff;
-    background-color: #1f2937;
-    transform: translateY(-2px);
-}
-
 /* MEDIA QUERIES (PANTALLAS)  */
 @media (max-width: 1024px) {
     .contenedor-productos-destacados,
@@ -759,8 +736,7 @@ footer a[href*="validarCredencial"]:hover {
     .nav-logos,
     .btn-carrito,
     #revisarcatalogo,
-    .contenedor-impresiones-personalizadas-footer a,
-    footer a {
+    .contenedor-impresiones-personalizadas-footer a {
         display: none !important;
     }
 
