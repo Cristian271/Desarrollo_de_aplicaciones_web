@@ -108,26 +108,43 @@ if ($accion === "quitar_destacado") {
     exit;
 }
 
-$stmtDel = mysqli_prepare($conexion, "DELETE FROM Productos WHERE cprod = ?");
-if (!$stmtDel) {
-    error_log("Error al preparar DELETE de producto: " . mysqli_error($conexion));
-    http_response_code(500);
-    echo json_encode(["ok" => false, "mensaje" => "Error interno al eliminar el producto."]);
-    mysqli_close($conexion);
-    exit;
-}
+mysqli_begin_transaction($conexion);
 
-mysqli_stmt_bind_param($stmtDel, "i", $cprod);
-if (!mysqli_stmt_execute($stmtDel)) {
-    error_log("Error al ejecutar DELETE de producto: " . mysqli_stmt_error($stmtDel));
+try {
+    $stmtDelDetalle = mysqli_prepare($conexion, "DELETE FROM Detalle_Encargos WHERE cprod = ?");
+    if (!$stmtDelDetalle) {
+        throw new RuntimeException("Error al preparar DELETE de detalle de encargos: " . mysqli_error($conexion));
+    }
+    mysqli_stmt_bind_param($stmtDelDetalle, "i", $cprod);
+    if (!mysqli_stmt_execute($stmtDelDetalle)) {
+        $err = mysqli_stmt_error($stmtDelDetalle);
+        mysqli_stmt_close($stmtDelDetalle);
+        throw new RuntimeException("Error al eliminar referencias en Detalle_Encargos: " . $err);
+    }
+    mysqli_stmt_close($stmtDelDetalle);
+
+    $stmtDel = mysqli_prepare($conexion, "DELETE FROM Productos WHERE cprod = ?");
+    if (!$stmtDel) {
+        throw new RuntimeException("Error al preparar DELETE de producto: " . mysqli_error($conexion));
+    }
+    mysqli_stmt_bind_param($stmtDel, "i", $cprod);
+    if (!mysqli_stmt_execute($stmtDel)) {
+        $err = mysqli_stmt_error($stmtDel);
+        mysqli_stmt_close($stmtDel);
+        throw new RuntimeException("Error al ejecutar DELETE de producto: " . $err);
+    }
     mysqli_stmt_close($stmtDel);
+
+    mysqli_commit($conexion);
+} catch (Throwable $e) {
+    mysqli_rollback($conexion);
+    error_log($e->getMessage());
     http_response_code(500);
     echo json_encode(["ok" => false, "mensaje" => "No se pudo eliminar el producto de la base de datos."]);
     mysqli_close($conexion);
     exit;
 }
 
-mysqli_stmt_close($stmtDel);
 mysqli_close($conexion);
 
 $imagenRelativa = $producto["imagen"] ?? "";

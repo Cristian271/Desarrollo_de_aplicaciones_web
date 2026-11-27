@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 
-const createWindow = () => {
+const createWindow = async () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -15,6 +15,7 @@ const createWindow = () => {
     event.preventDefault()
   })
 
+  await win.webContents.session.clearCache()
   win.loadURL('http://localhost/ProyectoFinalArtik3d/validarCredencial.html')
 }
 
